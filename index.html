@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Note d'Exécution Technique – Extension Maison 4 – ABD Interior's</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --abd-vert: #96b414;
+  --abd-vert-fonce: #7a9410;
+  --abd-vert-clair: #f2f7e6;
+  --gris-fonce: #1e1e1c;
+  --gris-moyen: #4a4a47;
+  --gris-clair: #e8e8e4;
+  --gris-tres-clair: #f7f7f5;
+  --bleu-ref: #2c4a6e;
+  --blanc: #ffffff;
+  --bordure: #d0cfc6;
+  --orange-avert: #b85c0d;
+  --orange-clair: #fdf3ec;
+  --vert-ok: #1a6b44;
+  --vert-ok-clair: #edf7f2;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 9.5pt;
+  color: var(--gris-fonce);
+  background: #ebebea;
+  line-height: 1.55;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ── PAGE ── */
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto 10mm;
+  background: var(--blanc);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+  padding: 14mm 16mm 14mm;
+  position: relative;
+  page-break-after: always;
+}
+
+/* ── EN-TÊTE ── */
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10mm;
+  border-bottom: 3.5px solid var(--abd-vert);
+  padding-bottom: 7mm;
+  margin-bottom: 7mm;
+}
+
+/* Logo ABD reconstitué en SVG inline */
+.logo-wrap { flex-shrink: 0; }
+
+.header-centre {}
+.header-doc-titre {
+  font-size: 13pt;
+  font-weight: 700;
+  color: var(--gris-fonce);
+  letter-spacing: -0.2px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.header-doc-objet {
+  font-size: 8.5pt;
+  color: var(--gris-moyen);
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.header-ref {
+  text-align: right;
+  font-size: 7.5pt;
+  color: var(--gris-moyen);
+  font-family: 'Courier New', monospace;
+  line-height: 1.8;
+  border-left: 2px solid var(--gris-clair);
+  padding-left: 8px;
+}
+.header-ref b { color: var(--gris-fonce); font-size: 8pt; }
+
+/* ── PIED DE PAGE ── */
+.footer {
+  margin-top: 8mm;
+  border-top: 1.5px solid var(--abd-vert);
+  padding-top: 4mm;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-size: 7pt;
+  color: var(--gris-moyen);
+  gap: 4px;
+}
+.footer .fc { text-align: center; }
+.footer .fr { text-align: right; }
+
+/* ── BANDEAUX DE SECTION ── */
+.section-titre {
+  background: var(--gris-fonce);
+  color: var(--blanc);
+  font-size: 8.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 4px 8px;
+  margin: 6mm 0 4mm;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.section-titre .num {
+  background: var(--abd-vert);
+  color: var(--blanc);
+  font-size: 8pt;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.section-titre.vert { background: var(--abd-vert); }
+.section-titre.bleu { background: var(--bleu-ref); }
+
+.sous-section {
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--abd-vert-fonce);
+  border-left: 3px solid var(--abd-vert);
+  padding: 2px 7px;
+  margin: 5mm 0 3mm;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* ── TEXTE ── */
+p { margin-bottom: 3mm; font-size: 9pt; }
+p.intro { font-size: 9pt; font-style: italic; color: var(--gris-moyen); border-left: 2px solid var(--abd-vert); padding-left: 8px; margin-bottom: 5mm; }
+
+/* ── ENCADRÉS ── */
+.box-ok {
+  background: var(--vert-ok-clair);
+  border-left: 4px solid var(--vert-ok);
+  padding: 6px 10px;
+  margin: 3mm 0;
+  font-size: 8.5pt;
+}
+.box-ok b { color: var(--vert-ok); }
+
+.box-avert {
+  background: var(--orange-clair);
+  border-left: 4px solid var(--orange-avert);
+  padding: 6px 10px;
+  margin: 3mm 0;
+  font-size: 8.5pt;
+}
+.box-avert b { color: var(--orange-avert); }
+
+.box-ref {
+  background: #eef2f7;
+  border-left: 4px solid var(--bleu-ref);
+  padding: 6px 10px;
+  margin: 3mm 0;
+  font-size: 8.5pt;
+}
+.box-ref b { color: var(--bleu-ref); }
+
+/* ── TABLEAU INFO PROJET ── */
+.table-info {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8.5pt;
+  margin-bottom: 4mm;
+}
+.table-info td {
+  padding: 4px 8px;
+  border: 0.5px solid var(--bordure);
+  vertical-align: top;
+}
+.table-info td.lab {
+  background: var(--gris-tres-clair);
+  color: var(--gris-moyen);
+  font-weight: 600;
+  width: 38%;
+  text-transform: uppercase;
+  font-size: 7.5pt;
+  letter-spacing: 0.2px;
+}
+.table-info td.val { color: var(--gris-fonce); font-weight: 500; }
+
+/* ── TABLEAU COMPOSITION PAROI ── */
+.table-compo {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8.5pt;
+  margin: 3mm 0 5mm;
+}
+.table-compo thead td {
+  background: var(--gris-fonce);
+  color: var(--blanc);
+  padding: 4px 8px;
+  font-weight: 700;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.table-compo tbody td {
+  padding: 4px 8px;
+  border: 0.5px solid var(--bordure);
+  vertical-align: top;
+}
+.table-compo tbody tr:nth-child(even) td { background: var(--gris-tres-clair); }
+.table-compo .couche-num {
+  background: var(--abd-vert);
+  color: var(--blanc);
+  font-weight: 700;
+  text-align: center;
+  width: 20px;
+  font-size: 8pt;
+}
+.table-compo .couche-nom { font-weight: 600; color: var(--gris-fonce); }
+.table-compo .couche-epaisseur { text-align: center; font-family: 'Courier New', monospace; color: var(--bleu-ref); font-weight: 600; }
+.table-compo .couche-role { color: var(--gris-moyen); font-size: 8pt; }
+
+/* ── SCHÉMA COUPE TEXTUEL ── */
+.schema-coupe {
+  font-family: 'Courier New', monospace;
+  font-size: 7.5pt;
+  background: var(--gris-tres-clair);
+  border: 1px solid var(--bordure);
+  border-left: 3px solid var(--abd-vert);
+  padding: 8px 10px;
+  margin: 3mm 0 5mm;
+  line-height: 1.45;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* ── PUCES GARANTIES ── */
+.garanties {
+  list-style: none;
+  margin: 3mm 0 5mm;
+}
+.garanties li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 9pt;
+  border-bottom: 0.5px solid var(--gris-clair);
+}
+.garanties li:last-child { border-bottom: none; }
+.garanties .picto {
+  width: 18px;
+  height: 18px;
+  background: var(--abd-vert);
+  color: var(--blanc);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10pt;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.garanties .picto.rouge { background: #c0392b; }
+.garanties li b { color: var(--abd-vert-fonce); }
+
+/* ── LÉGENDE SCHÉMA SVG ── */
+.legende-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 10px;
+  margin: 3mm 0;
+  font-size: 8pt;
+}
+.legende-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.lg-carre {
+  width: 14px;
+  height: 14px;
+  border: 0.5px solid rgba(0,0,0,0.2);
+  flex-shrink: 0;
+}
+.lg-trait {
+  width: 20px;
+  height: 3px;
+  flex-shrink: 0;
+}
+
+/* ── SCHÉMA SVG ── */
+.schema-svg-wrap {
+  margin: 4mm 0;
+  border: 1px solid var(--bordure);
+  padding: 6px;
+  background: var(--gris-tres-clair);
+}
+.schema-svg-titre {
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gris-moyen);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--bordure);
+  padding-bottom: 3px;
+}
+
+/* ── GRILLE 2 COL ── */
+.deux-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5mm;
+  margin: 3mm 0;
+}
+
+/* ── SIGNATURE / VISA ── */
+.bloc-visa {
+  border: 1px solid var(--bordure);
+  padding: 6px 10px;
+  font-size: 8pt;
+}
+.bloc-visa .visa-titre {
+  font-size: 7.5pt;
+  text-transform: uppercase;
+  color: var(--gris-moyen);
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  margin-bottom: 3px;
+}
+.bloc-visa .visa-nom { font-weight: 700; font-size: 9pt; color: var(--gris-fonce); }
+.bloc-visa .visa-zone {
+  margin-top: 6px;
+  height: 16mm;
+  border: 0.5px dashed var(--bordure);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gris-clair);
+  font-size: 7.5pt;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* Print */
+@media print {
+  body { background: white; }
+  .page { box-shadow: none; margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════
+     PAGE 1 — EN-TÊTE, OBJET, CONTEXTE, PRINCIPES
+════════════════════════════════════════════════ -->
+<div class="page">
+
+  <!-- EN-TÊTE -->
+  <div class="header">
+
+    <!-- LOGO ABD INTERIOR'S réel -->
+    <div class="logo-wrap">
+      <svg width="100" height="82" viewBox="0 0 110 90" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="55,8 98,38 98,82 12,82 12,38" fill="#5a8a00" stroke="#3d6200" stroke-width="1.5"/>
+  <polygon points="55,4 104,40 6,40" fill="#4a7800" stroke="#3d6200" stroke-width="1"/>
+  <rect x="43" y="58" width="24" height="24" rx="2" fill="#3d6200"/>
+  <ellipse cx="44" cy="14" rx="8" ry="5" fill="#7ab800" transform="rotate(-30,44,14)"/>
+  <ellipse cx="64" cy="11" rx="8" ry="5" fill="#96b414" transform="rotate(20,64,11)"/>
+  <line x1="55" y1="18" x2="55" y2="8" stroke="#3d6200" stroke-width="1.5"/>
+  <text x="55" y="72" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="13" fill="#ffffff" letter-spacing="1">abd</text>
+  <text x="55" y="84" text-anchor="middle" font-family="Georgia, serif" font-weight="400" font-size="8" fill="#c8e060" letter-spacing="0.5">interiors</text>
+</svg>
+    </div>
+
+    <!-- Titre du document -->
+    <div class="header-centre">
+      <div class="header-doc-titre">Note d'Exécution Technique</div>
+      <div class="header-doc-objet">
+        Extension cuisine — Maison 4 — Copropriété CHOO, Montreuil (93)<br>
+        <strong>Objet : Interface et raccordement avec le mur mitoyen de la Maison 3</strong>
+      </div>
+    </div>
+
+    <!-- Références -->
+    <div class="header-ref">
+      <b>Réf. : ABD-NET-2026-M4-001</b><br>
+      Indice A — Mai 2026<br>
+      Page 1/3<br>
+      BET : Tjikko BET Bois
+    </div>
+
+  </div><!-- /header -->
+
+  <!-- AVERTISSEMENT PÉDAGOGIQUE -->
+  <p class="intro">
+    Ce document est établi à l'attention des copropriétaires et, plus particulièrement, des occupants
+    de la Maison 3. Il décrit, avec le niveau de précision d'un plan d'exécution simplifié, les
+    dispositions constructives retenues à l'interface entre l'extension projetée (Maison 4) et le mur
+    extérieur de la Maison 3. Il démontre, de façon pédagogique et techniquement vérifiable, que
+    l'ouvrage projeté est intégralement autonome et sans aucune interaction mécanique ou structurelle
+    avec la Maison 3.
+  </p>
+
+  <!-- ── SECTION 1 ── -->
+  <div class="section-titre">
+    <span class="num">1</span> Identification du projet et des intervenants
+  </div>
+
+  <table class="table-info">
+    <tr>
+      <td class="lab">Maître d'ouvrage</td>
+      <td class="val">Propriétaires Maison 4 — Copropriété CHOO, Montreuil (93)</td>
+    </tr>
+    <tr>
+      <td class="lab">Entreprise titulaire</td>
+      <td class="val">ABD Interior's — Constructeur d'ossature bois Île-de-France<br>
+        <span style="font-size:8pt; color:#4a4a47;">www.abd-interiors.net — 09 74 56 43 12</span></td>
+    </tr>
+    <tr>
+      <td class="lab">Bureau d'étude structure</td>
+      <td class="val">Tjikko BET Bois — 39 avenue Henri Lefeuvre, 72100 Le Mans<br>
+        <span style="font-size:8pt; color:#4a4a47;">Auteur des plans structure des maisons de la copropriété CHOO</span></td>
+    </tr>
+    <tr>
+      <td class="lab">Autorisation administrative</td>
+      <td class="val">Déclaration préalable de travaux approuvée — Mairie de Montreuil (93)</td>
+    </tr>
+    <tr>
+      <td class="lab">Surface d'extension</td>
+      <td class="val">≈ 4 m² (3,89 m²) — prolongement de la cuisine de 1,10 m vers le jardin</td>
+    </tr>
+  </table>
+
+  <!-- ── SECTION 2 ── -->
+  <div class="section-titre">
+    <span class="num">2</span> Principe fondamental — Structure totalement autonome
+  </div>
+
+  <p>
+    L'extension est conçue et réalisée comme un <strong>ouvrage structurellement indépendant</strong>,
+    portant ses propres charges sans aucun recours au mur de la Maison 3. Ce principe, retenu dès la
+    conception par le bureau d'étude Tjikko, est la réponse directe aux préoccupations exprimées par
+    les occupants de la Maison 3.
+  </p>
+
+  <div class="box-ok">
+    <b>Engagement de structure autonome — 3 règles absolues, vérifiables à tout stade du chantier :</b>
+  </div>
+
+  <ul class="garanties">
+    <li>
+      <span class="picto">✓</span>
+      <div><b>Zéro percement</b> dans le mur de la Maison 3. Ni cheville, ni boulon, ni ancrage de
+      quelque nature que ce soit ne sera réalisé dans la maçonnerie ou l'ossature bois du mur voisin.</div>
+    </li>
+    <li>
+      <span class="picto">✓</span>
+      <div><b>Zéro reprise de charge</b> sur le mur de la Maison 3. Aucun élément structurel de
+      l'extension (solive, poteau, lisse haute ou basse, linteau, chevron de toiture) ne repose
+      directement ou indirectement sur le mur voisin.</div>
+    </li>
+    <li>
+      <span class="picto">✓</span>
+      <div><b>Zéro fixation</b> de l'enveloppe dans le mur de la Maison 3. Les composants d'étanchéité
+      (bardage, tasseaux, membrane pare-pluie, solin, couverture zinc) sont portés exclusivement par la
+      structure propre de l'extension.</div>
+    </li>
+  </ul>
+
+  <div class="box-ref">
+    <b>Référence technique :</b> Ce principe est validé dans les plans structure établis par le bureau
+    d'étude Tjikko (dossier indice B, 24/11/2025). Tjikko étant également le concepteur des maisons
+    de la copropriété, il dispose d'une connaissance précise des caractéristiques constructives des
+    murs mitoyens et a confirmé la faisabilité de cette approche sans aucune interaction avec le mur voisin.
+  </div>
+
+  <!-- ── SECTION 3 ── -->
+  <div class="section-titre">
+    <span class="num">3</span> Fondations indépendantes
+  </div>
+
+  <p>
+    L'extension repose sur <strong>deux plots béton coulés en place</strong>, implantés dans l'emprise
+    stricte de l'extension, à distance du mur de la Maison 3. Ces plots constituent les appuis exclusifs
+    de la structure. Ils sont calculés et positionnés de sorte à ne solliciter ni le sol, ni les
+    fondations existantes de la Maison 3.
+  </p>
+
+  <div class="deux-col">
+    <div>
+      <div class="sous-section">Plancher bas — Dalle bois</div>
+      <table class="table-info">
+        <tr><td class="lab">Appuis</td><td class="val">2 plots béton indépendants (sabots métalliques réglables)</td></tr>
+        <tr><td class="lab">Poutre de rive</td><td class="val">LVL 2×45×300 mm ou BLC 100×360 mm</td></tr>
+        <tr><td class="lab">Solives</td><td class="val">45×220 mm ou 50×300 mm</td></tr>
+        <tr><td class="lab">Raccord maison 4</td><td class="val">Lisse basse solidarisée à la structure existante</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="sous-section">Ossature murs et toiture</div>
+      <table class="table-info">
+        <tr><td class="lab">Montants</td><td class="val">45×145 mm ×2 (section doublée aux angles)</td></tr>
+        <tr><td class="lab">Lisse basse</td><td class="val">45×145 mm sur plot — pas de renfort supplémentaire</td></tr>
+        <tr><td class="lab">Lisse haute</td><td class="val">45×145 mm — portée reprise par chevrons</td></tr>
+        <tr><td class="lab">Toiture</td><td class="val">Pente unique — couverture zinc — isolation identique maison</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pied de page page 1 -->
+  <div class="footer">
+    <div>ABD Interior's — Constructeur d'ossature bois Île-de-France</div>
+    <div class="fc">ABD-NET-2026-M4-001 — Ind. A</div>
+    <div class="fr">Page 1 / 3</div>
+  </div>
+
+</div><!-- /page 1 -->
+
+
+<!-- ════════════════════════════════════════════════
+     PAGE 2 — COUPE DÉTAILLÉE DU RACCORD MITOYEN
+════════════════════════════════════════════════ -->
+<div class="page">
+
+  <!-- EN-TÊTE réduit page 2 -->
+  <div class="header">
+    <div class="logo-wrap">
+      <svg width="80" height="65" viewBox="0 0 110 90" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="55,8 98,38 98,82 12,82 12,38" fill="#5a8a00" stroke="#3d6200" stroke-width="1.5"/>
+  <polygon points="55,4 104,40 6,40" fill="#4a7800" stroke="#3d6200" stroke-width="1"/>
+  <rect x="43" y="58" width="24" height="24" rx="2" fill="#3d6200"/>
+  <ellipse cx="44" cy="14" rx="8" ry="5" fill="#7ab800" transform="rotate(-30,44,14)"/>
+  <ellipse cx="64" cy="11" rx="8" ry="5" fill="#96b414" transform="rotate(20,64,11)"/>
+  <line x1="55" y1="18" x2="55" y2="8" stroke="#3d6200" stroke-width="1.5"/>
+  <text x="55" y="72" text-anchor="middle" font-family="Georgia, serif" font-weight="700"
+        font-size="13" fill="#ffffff" letter-spacing="1">abd</text>
+  <text x="55" y="84" text-anchor="middle" font-family="Georgia, serif" font-weight="400"
+        font-size="8" fill="#c8e060" letter-spacing="0.5">interiors</text>
+</svg>
+    </div>
+    <div class="header-centre">
+      <div class="header-doc-titre" style="font-size:11pt;">Note d'Exécution Technique — Extension Maison 4</div>
+      <div class="header-doc-objet">Interface avec le mur de la Maison 3 — Coupe détaillée du raccordement</div>
+    </div>
+    <div class="header-ref">
+      <b>Réf. : ABD-NET-2026-M4-001</b><br>
+      Ind. A — Mai 2026<br>
+      Page 2/3
+    </div>
+  </div>
+
+  <!-- ── SECTION 4 ── -->
+  <div class="section-titre vert">
+    <span class="num" style="background:#fff; color:#96b414;">4</span>
+    Coupe horizontale détaillée — Interface Maison 3 / Extension Maison 4
+  </div>
+
+  <p>
+    La coupe ci-dessous représente une section horizontale à hauteur de mur courant (environ +1,20 m du sol
+    fini). Elle décrit, de gauche à droite, la succession exacte des matériaux depuis le nu extérieur du
+    mur de la Maison 3 jusqu'à l'intérieur de l'extension. L'échelle est indicative ; les épaisseurs sont
+    issues des plans structure Tjikko et du descriptif ABD Interior's.
+  </p>
+
+  <!-- SCHÉMA SVG COUPE HORIZONTALE -->
+  <div class="schema-svg-wrap">
+    <div class="schema-svg-titre">Fig. 1 — Coupe horizontale à la paroi latérale mitoyenne (vue de dessus)</div>
+
+    <svg width="100%" viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg"
+         style="display:block;" role="img">
+      <title>Coupe horizontale de l'interface entre le mur Maison 3 et l'extension Maison 4</title>
+      <desc>Coupe horizontale vue de dessus : mur MOB M3 (placo, ossature, OSB, pare-pluie, tasseaux, bardage), vide de 25mm, pare-pluie extension, ossature bois extension, isolant, frein-vapeur, placo intérieur.</desc>
+
+      <defs>
+        <pattern id="hach-bois" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="6" stroke="#c8a06e" stroke-width="0.9"/>
+        </pattern>
+        <pattern id="hach-isolant" width="10" height="10" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.2" fill="#f0c060" opacity="0.7"/>
+          <circle cx="7" cy="7" r="1.2" fill="#f0c060" opacity="0.7"/>
+        </pattern>
+        <pattern id="hach-osb" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(20)">
+          <line x1="0" y1="0" x2="8" y2="0" stroke="#b08040" stroke-width="0.6"/>
+          <line x1="0" y1="4" x2="8" y2="4" stroke="#b08040" stroke-width="0.3"/>
+        </pattern>
+        <marker id="arrH" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- Fond -->
+      <rect x="0" y="0" width="680" height="340" fill="#f7f7f5"/>
+
+      <!-- Étiquettes zones haut -->
+      <text x="120" y="15" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="8" font-weight="700" fill="#1e1e1c">MAISON 3</text>
+      <text x="120" y="25" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#666">(existant — inchangé)</text>
+      <text x="460" y="15" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="8" font-weight="700" fill="#1e1e1c">EXTENSION MAISON 4</text>
+      <text x="460" y="25" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#666">(structure autonome)</text>
+
+      <!-- Lignes de fond -->
+      <line x1="30" y1="32" x2="650" y2="32" stroke="#ddd" stroke-width="0.5" stroke-dasharray="3,3"/>
+      <line x1="30" y1="232" x2="650" y2="232" stroke="#ddd" stroke-width="0.5" stroke-dasharray="3,3"/>
+
+      <!--
+        GÉOMÉTRIE CORRIGÉE (gauche → droite) :
+        MUR MOB M3 :
+          Placo M3         x=30..42    w=12
+          OSB int M3       x=42..53    w=11
+          Montants+iso M3  x=53..153   w=100
+          OSB ext M3       x=153..164  w=11
+          Pare-pluie M3    x=164..169  w=5
+          Tasseaux M3      x=169..197  w=28
+          Bardage M3       x=197..213  w=16
+        VIDE 25mm          x=213..243  w=30
+        EXTENSION M4 (même composition et largeur que Fig.2) :
+          Pare-pluie ext   x=243..248  w=5
+          Isolant+montants x=248..368  w=120  (montants intégrés dans l'isolant, comme Fig.2)
+          Frein-vapeur     x=368..372  w=4
+          Placo int        x=372..384  w=12
+          Intérieur        x=384..640
+      -->
+
+      <!-- ── MUR MOB M3 ── -->
+      <!-- Placo M3 -->
+      <rect x="30" y="32" width="12" height="200" fill="#eeede8" stroke="#bbb" stroke-width="0.5"/>
+      <!-- OSB int M3 -->
+      <rect x="42" y="32" width="11" height="200" fill="url(#hach-osb)" stroke="#b08040" stroke-width="0.5"/>
+      <!-- Montants+isolant M3 -->
+      <rect x="53" y="32" width="100" height="200" fill="url(#hach-isolant)" stroke="none"/>
+      <rect x="53"  y="32" width="14" height="200" fill="url(#hach-bois)" stroke="#a07840" stroke-width="0.7"/>
+      <rect x="139" y="32" width="14" height="200" fill="url(#hach-bois)" stroke="#a07840" stroke-width="0.7"/>
+      <!-- OSB ext M3 -->
+      <rect x="153" y="32" width="11" height="200" fill="url(#hach-osb)" stroke="#b08040" stroke-width="0.5"/>
+      <!-- Pare-pluie M3 -->
+      <rect x="164" y="32" width="5" height="200" fill="#b0c8f0" stroke="#5a80c0" stroke-width="0.5"/>
+      <!-- Tasseaux M3 -->
+      <rect x="169" y="40"  width="28" height="42" fill="#c8a06e" stroke="#a07840" stroke-width="0.5" rx="1"/>
+      <rect x="169" y="110" width="28" height="42" fill="#c8a06e" stroke="#a07840" stroke-width="0.5" rx="1"/>
+      <rect x="169" y="180" width="28" height="42" fill="#c8a06e" stroke="#a07840" stroke-width="0.5" rx="1"/>
+      <!-- Bardage M3 -->
+      <rect x="197" y="32" width="16" height="200" fill="#d4b896" stroke="#a07840" stroke-width="0.8"/>
+      <line x1="197" y1="78"  x2="213" y2="78"  stroke="#b89070" stroke-width="0.7"/>
+      <line x1="197" y1="122" x2="213" y2="122" stroke="#b89070" stroke-width="0.7"/>
+      <line x1="197" y1="164" x2="213" y2="164" stroke="#b89070" stroke-width="0.7"/>
+      <line x1="197" y1="207" x2="213" y2="207" stroke="#b89070" stroke-width="0.7"/>
+
+      <!-- ── VIDE DE DÉSOLIDARISATION ~25mm ── -->
+      <rect x="213" y="32" width="30" height="200" fill="#f0f7ff" stroke="#aaccee" stroke-width="0.5" stroke-dasharray="3,2"/>
+      <!-- cote vide -->
+      <line x1="213" y1="244" x2="243" y2="244" stroke="#3a8ad4" stroke-width="0.8"/>
+      <line x1="213" y1="240" x2="213" y2="248" stroke="#3a8ad4" stroke-width="0.8"/>
+      <line x1="243" y1="240" x2="243" y2="248" stroke="#3a8ad4" stroke-width="0.8"/>
+      <text x="228" y="258" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#3a8ad4" font-weight="700">~25 mm</text>
+      <text x="228" y="268" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="6.5" fill="#3a8ad4">vide</text>
+
+      <!-- ── EXTENSION M4 — composition identique Fig.2 ── -->
+      <!-- Pare-pluie ext x=243..248 -->
+      <rect x="243" y="32" width="5" height="200" fill="#b0c8f0" stroke="#5a80c0" stroke-width="0.5"/>
+      <!-- Isolant 145mm x=248..368 avec montants intégrés (comme Fig.2) -->
+      <rect x="248" y="32" width="120" height="200" fill="url(#hach-isolant)" stroke="#d4a020" stroke-width="0.5"/>
+      <!-- Montant gauche intégré dans isolant -->
+      <rect x="248" y="32" width="14" height="200" fill="url(#hach-bois)" stroke="#a07840" stroke-width="0.7"/>
+      <!-- Montant droit intégré dans isolant -->
+      <rect x="354" y="32" width="14" height="200" fill="url(#hach-bois)" stroke="#a07840" stroke-width="0.7"/>
+      <!-- Frein-vapeur x=368..372 -->
+      <rect x="368" y="32" width="4" height="200" fill="#f0b0c0" stroke="#c06080" stroke-width="0.5"/>
+      <!-- Placo intérieur extension x=372..384 -->
+      <rect x="372" y="32" width="12" height="200" fill="#eeede8" stroke="#bbb" stroke-width="0.5"/>
+      <!-- Intérieur extension x=384..640 -->
+      <rect x="384" y="32" width="256" height="200" fill="#fff" stroke="none"/>
+      <text x="512" y="130" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#ccc" font-style="italic">Intérieur extension</text>
+      <text x="512" y="143" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#ccc" font-style="italic">(cuisine Maison 4)</text>
+
+      <!-- ── ANNOTATIONS ── -->
+      <!-- Label Intérieur M3 -->
+      <text x="28" y="135" text-anchor="end" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#666" font-style="italic">← Int. M3</text>
+
+      <!-- Annotations gauche (M3) -->
+      <line x1="205" y1="232" x2="205" y2="250" stroke="#8a5010" stroke-width="0.6"/>
+      <line x1="205" y1="250" x2="100" y2="250" stroke="#8a5010" stroke-width="0.6"/>
+      <text x="96" y="253" text-anchor="end" font-family="Helvetica,Arial,sans-serif" font-size="6.5" fill="#8a5010">A — Bardage M3</text>
+
+      <line x1="183" y1="232" x2="183" y2="260" stroke="#7a5020" stroke-width="0.6"/>
+      <line x1="183" y1="260" x2="100" y2="260" stroke="#7a5020" stroke-width="0.6"/>
+      <text x="96" y="263" text-anchor="end" font-family="Helvetica,Arial,sans-serif" font-size="6.5" fill="#7a5020">B — Tasseaux M3</text>
+
+      <line x1="166" y1="232" x2="166" y2="270" stroke="#3a6090" stroke-width="0.6"/>
+      <line x1="166" y1="270" x2="100" y2="270" stroke="#3a6090" stroke-width="0.6"/>
+      <text x="96" y="273" text-anchor="end" font-family="Helvetica,Arial,sans-serif" font-size="6.5" fill="#3a6090">C — Pare-pluie M3</text>
+
+      <!-- Annotations droite (Extension) -->
+      <line x1="228" y1="232" x2="228" y2="280" stroke="#2c4a6e" stroke-width="0.6"/>
+      <line x1="228" y1="280" x2="384" y2="280" stroke="#2c4a6e" stroke-width="0.6"/>
+      <text x="388" y="283" font-family="Helvetica,Arial,sans-serif" font-size="6.5" fill="#2c4a6e">D — Vide 25 mm désolidarisation</text>
+
+      <line x1="245" y1="232" x2="245" y2="290" stroke="#3a6090" stroke-width="0.6"/>
+      <line x1="245" y1="290" x2="384" y2="290" stroke="#3a6090" stroke-width="0.6"/>
+      <text x="388" y="293" font-family="Helvetica,Arial,sans-serif" font-size="6.5" fill="#3a6090">E — Pare-pluie extension M4</text>
+
+      <line x1="308" y1="232" x2="308" y2="300" stroke="#d4a020" stroke-width="0.6"/>
+      <line x1="308" y1="300" x2="384" y2="300" stroke="#d4a020" stroke-width="0.6"/>
+      <text x="388" y="303" font-family="Helvetica,Arial,sans-serif" font-size="6.5" fill="#b08010">F/G — Montants 45×145 + Isolant 145 mm</text>
+
+      <line x1="370" y1="232" x2="370" y2="310" stroke="#c06080" stroke-width="0.6"/>
+      <line x1="370" y1="310" x2="384" y2="310" stroke="#c06080" stroke-width="0.6"/>
+      <text x="388" y="313" font-family="Helvetica,Arial,sans-serif" font-size="6.5" fill="#c06080">H — Frein-vapeur + Placo</text>
+
+      <!-- Zéro percement centré dans le vide -->
+      <circle cx="228" cy="132" r="10" fill="none" stroke="#c0392b" stroke-width="2"/>
+      <line x1="221" y1="125" x2="235" y2="139" stroke="#c0392b" stroke-width="2"/>
+      <text x="228" y="118" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#c0392b" font-weight="700">Zéro</text>
+      <text x="228" y="108" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#c0392b" font-weight="700">percement</text>
+
+    </svg>
+  </div>
+
+  <!-- LÉGENDE couleurs -->
+  <div class="legende-wrap">
+    <div class="legende-item"><div class="lg-carre" style="background:#c8a06e;"></div>Ossature bois / tasseaux (montants 45×145 mm, tasseaux 40×60 mm)</div>
+    <div class="legende-item"><div class="lg-carre" style="background:#b0c8f0; border:1px solid #5a80c0;"></div>Pare-pluie (C côté M3, E côté extension)</div>
+    <div class="legende-item"><div class="lg-carre" style="background:#f8e68e; border:1px solid #d4a020;"></div>Isolant laine de bois ou laine de roche</div>
+    <div class="legende-item"><div class="lg-carre" style="background:#f0f7ff; border:1px dashed #aaccee;"></div>Vide de désolidarisation ~25 mm (D)</div>
+    <div class="legende-item"><div class="lg-carre" style="background:#d4b896; border:1px solid #a07840;"></div>Bardage bois (A côté M3, lames teinte naturelle)</div>
+    <div class="legende-item"><div class="lg-carre" style="background:#f0b0c0; border:1px solid #c06080;"></div>Frein-vapeur hygrovariable</div>
+    <div class="legende-item"><div class="lg-carre" style="background:#eeede8; border:1px solid #bbb;"></div>Plaque de plâtre BA13 (parements intérieurs)</div>
+    <div class="legende-item"><div class="lg-carre" style="background:#b08040; opacity:0.5;"></div>Panneaux OSB (contreventement)</div>
+  </div>
+
+  <!-- ── DESCRIPTION TEXTUELLE PRÉCISE DE LA COUPE ── -->
+  <div class="section-titre bleu">
+    <span class="num" style="background:#fff; color:#2c4a6e;">4.1</span>
+    Description littérale détaillée de la coupe — de l'extérieur vers l'intérieur
+  </div>
+
+  <p>
+    La lecture s'effectue depuis l'intérieur de la Maison 3 (gauche) vers l'intérieur de l'extension (droite).
+    Les épaisseurs sont les valeurs nominales issues des plans Tjikko et du descriptif ABD Interior's.
+    Des tolérances de ±5 mm sont courantes en construction bois.
+  </p>
+
+  <table class="table-compo">
+    <thead>
+      <tr>
+        <td style="width:22px;">Réf.</td>
+        <td style="width:28%;">Composant</td>
+        <td style="width:12%;">Épaisseur</td>
+        <td>Description précise et rôle technique</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="couche-num" style="background:#555;">—</td>
+        <td class="couche-nom" style="background:#f0f0ee; font-style:italic;">Mur MOB M3 complet (existant)</td>
+        <td class="couche-epaisseur" style="background:#f0f0ee;">≈ 250 mm</td>
+        <td class="couche-role" style="background:#f0f0ee;">Placo BA13 + OSB int. + montants 45×145 mm avec isolant + OSB ext. + pare-pluie + tasseaux 40×60 mm + bardage bois. Composition conforme plans Tjikko BET Bois. <strong>Cet ouvrage n'est pas modifié.</strong></td>
+      </tr>
+      <tr>
+        <td class="couche-num">A</td>
+        <td class="couche-nom">Bardage M3</td>
+        <td class="couche-epaisseur">22 mm</td>
+        <td class="couche-role">Lames de bardage bois teinte naturelle côté M3, vissées sur les tasseaux (B). Face extérieure du mur M3 donnant sur le vide de désolidarisation. <strong>Non percé, non découpé, non touché.</strong></td>
+      </tr>
+      <tr>
+        <td class="couche-num">B</td>
+        <td class="couche-nom">Tasseaux M3 — 40×60 mm</td>
+        <td class="couche-epaisseur">40 mm</td>
+        <td class="couche-role">Tasseaux verticaux vissés dans l'ossature M3. Ils supportent le bardage A et créent une lame d'air ventilée entre le pare-pluie C et le bardage A. Ils appartiennent intégralement à M3. Aucune intervention dessus.</td>
+      </tr>
+      <tr>
+        <td class="couche-num">C</td>
+        <td class="couche-nom">Pare-pluie M3</td>
+        <td class="couche-epaisseur">2–3 mm</td>
+        <td class="couche-role">Membrane respirante de la Maison 3, posée entre l'OSB extérieur et les tasseaux B. Elle protège la structure MOB de M3 de toute infiltration. <strong>Non percée, non touchée.</strong> Elle reste en place, intégralement préservée.</td>
+      </tr>
+      <tr>
+        <td class="couche-num">D</td>
+        <td class="couche-nom">Vide de désolidarisation</td>
+        <td class="couche-epaisseur">~25 mm</td>
+        <td class="couche-role">Espace libre ménagé entre le nu extérieur du bardage de la Maison 3 (A) et le pare-pluie de l'extension (E). Ce vide absorbe les mouvements différentiels des deux ouvrages indépendants (dilatation thermique, tassement différentiel). En partie haute, ce vide est comblé par la bande Compriband et le solin Z (voir §5). <strong>Aucun contact rigide entre M3 et M4.</strong></td>
+      </tr>
+      <tr>
+        <td class="couche-num">E</td>
+        <td class="couche-nom">Pare-pluie extension M4</td>
+        <td class="couche-epaisseur">2–3 mm</td>
+        <td class="couche-role">Membrane respirante propre à l'extension, agrafée et scotchée exclusivement sur les montants et l'OSB de l'extension M4. Elle est la première couche de l'extension côté vide. Elle ne touche pas et n'est pas fixée dans le mur M3. Son retour latéral se termine au droit du vide D.</td>
+      </tr>
+      <tr>
+        <td class="couche-num">F</td>
+        <td class="couche-nom">Montant ossature bois extension</td>
+        <td class="couche-epaisseur">145 mm</td>
+        <td class="couche-role">Montant 45×145 mm constituant la <strong>structure porteuse propre de l'extension</strong>. Il porte les charges de la toiture et les transmet aux plots béton via les lisses. <strong>Il n'est en aucun cas solidarisé au mur de la Maison 3.</strong> L'espace entre lui et le bardage M3 est constitué du vide D et du pare-pluie E, soit ~30 mm au total.</td>
+      </tr>
+      <tr>
+        <td class="couche-num">G</td>
+        <td class="couche-nom">Isolant entre montants extension</td>
+        <td class="couche-epaisseur">145 mm</td>
+        <td class="couche-role">Laine de bois ou laine de roche calepinée entre montants. Isolation thermique et acoustique de l'extension, de performance équivalente à celle des murs de la maison existante.</td>
+      </tr>
+      <tr>
+        <td class="couche-num">H</td>
+        <td class="couche-nom">Frein-vapeur + OSB + Placo</td>
+        <td class="couche-epaisseur">~25 mm</td>
+        <td class="couche-role">Parements intérieurs de l'extension : frein-vapeur hygrovariable (4 mm), panneau OSB de contreventement (8 mm), plaque de plâtre BA13 (13 mm). Face intérieure visible de l'extension côté cuisine.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pied de page page 2 -->
+  <div class="footer">
+    <div>ABD Interior's — Constructeur d'ossature bois Île-de-France</div>
+    <div class="fc">ABD-NET-2026-M4-001 — Ind. A</div>
+    <div class="fr">Page 2 / 3</div>
+  </div>
+
+</div><!-- /page 2 -->
+
+
+<!-- ════════════════════════════════════════════════
+     PAGE 3 — COUPE VERTICALE, SOLIN, GARANTIES, VISA
+════════════════════════════════════════════════ -->
+<div class="page">
+
+  <!-- EN-TÊTE réduit page 3 -->
+  <div class="header">
+    <div class="logo-wrap">
+      <svg width="80" height="65" viewBox="0 0 110 90" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="55,8 98,38 98,82 12,82 12,38" fill="#5a8a00" stroke="#3d6200" stroke-width="1.5"/>
+  <polygon points="55,4 104,40 6,40" fill="#4a7800" stroke="#3d6200" stroke-width="1"/>
+  <rect x="43" y="58" width="24" height="24" rx="2" fill="#3d6200"/>
+  <ellipse cx="44" cy="14" rx="8" ry="5" fill="#7ab800" transform="rotate(-30,44,14)"/>
+  <ellipse cx="64" cy="11" rx="8" ry="5" fill="#96b414" transform="rotate(20,64,11)"/>
+  <line x1="55" y1="18" x2="55" y2="8" stroke="#3d6200" stroke-width="1.5"/>
+  <text x="55" y="72" text-anchor="middle" font-family="Georgia, serif" font-weight="700"
+        font-size="13" fill="#ffffff" letter-spacing="1">abd</text>
+  <text x="55" y="84" text-anchor="middle" font-family="Georgia, serif" font-weight="400"
+        font-size="8" fill="#c8e060" letter-spacing="0.5">interiors</text>
+</svg>
+    </div>
+    <div class="header-centre">
+      <div class="header-doc-titre" style="font-size:11pt;">Note d'Exécution Technique — Extension Maison 4</div>
+      <div class="header-doc-objet">Raccordement en tête de paroi — Solin zinc — Garanties & visa</div>
+    </div>
+    <div class="header-ref">
+      <b>Réf. : ABD-NET-2026-M4-001</b><br>
+      Ind. A — Mai 2026<br>
+      Page 3/3
+    </div>
+  </div>
+
+  <!-- ── SECTION 5 ── -->
+  <div class="section-titre vert">
+    <span class="num" style="background:#fff; color:#96b414;">5</span>
+    Raccordement latéral — Solution sans percement ni découpe dans le mur de la Maison 3
+  </div>
+
+  <div class="box-avert" style="margin-bottom:4mm;">
+    <b>Point de vigilance identifié :</b> Le raccordement entre le bord latéral de la toiture de l'extension
+    et le bardage de la Maison 3 constitue la zone sensible du projet.
+    <strong>La solution retenue traite ce joint exclusivement par l'extérieur, sans aucune intervention
+    sur le bardage de la Maison 3.</strong>
+  </div>
+
+  <div class="sous-section">5.1 — Solution retenue : vide de désolidarisation + solin Z + Compriband</div>
+
+  <p>La solution repose sur trois composants complémentaires, chacun fixé ou posé exclusivement côté extension :</p>
+
+  <!-- Tableau des composants -->
+  <table class="table-compo" style="margin-bottom:5mm;">
+    <thead>
+      <tr>
+        <td style="width:30px;">Réf.</td>
+        <td style="width:32%;">Composant</td>
+        <td>Description et rôle</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="couche-num" style="background:#2a6a2a; text-align:center; color:#fff; font-weight:700; font-size:11pt;">A</td>
+        <td class="couche-nom">Bande Compriband<br><span style="font-size:8pt;font-weight:400;color:#555;">mousse imprégnée compressible</span></td>
+        <td class="couche-role">Posée en compression dans le vide entre bardage M3 et extension, au niveau du solin et de l'isolant de toiture. Travaille en poussée permanente contre les deux surfaces. <strong>Aucune vis, aucune colle.</strong> Étanchéité à l'air et à l'eau. Durée de vie ≥ 25 ans. Prix indicatif : 8–15 €/ml.</td>
+      </tr>
+      <tr>
+        <td class="couche-num" style="background:#3a5a8a; text-align:center; color:#fff; font-weight:700; font-size:11pt;">B</td>
+        <td class="couche-nom">Solin zinc en Z asymétrique<br><span style="font-size:8pt;font-weight:400;color:#555;">pièce sur mesure</span></td>
+        <td class="couche-role">Profilé à trois branches : branche basse fixée par vis sur les chevrons de rive de l'extension M4 (aucune vis côté M3) ; branche verticale remontant le long du bardage M3 sans le percer ; retour horizontal appuyé par gravité sur le bardage M3 pour rejeter les eaux. <strong>Zéro fixation dans M3.</strong></td>
+      </tr>
+      <tr>
+        <td class="couche-num" style="background:#1a6a1a; text-align:center; color:#fff; font-weight:700; font-size:11pt;">C</td>
+        <td class="couche-nom">Mastic EPDM souple<br><span style="font-size:8pt;font-weight:400;color:#555;">Soudal Fix All ou équivalent</span></td>
+        <td class="couche-role">Appliqué entre le retour horizontal du solin B et le bardage M3 en tête de vide. Contact de surface uniquement — non agressif pour le bardage bois. Décollable sans trace. Rôle : colmatage résiduel et étanchéité de finition.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SCHÉMA SVG v14 -->
+  <div class="schema-svg-wrap">
+    <div class="schema-svg-titre">Fig. 2 — Coupe verticale — Raccordement latéral : mur MOB M3 / extension M4 (conforme plans Tjikko)</div>
+    <svg width="100%" viewBox="0 0 680 760" xmlns="http://www.w3.org/2000/svg" style="display:block;" role="img">
+      <title>Coupe verticale — mur MOB M3 Tjikko + solin Z + Compriband sans percement</title>
+      <desc>Coupe verticale complète du raccordement entre le mur MOB M3 (placo, OSB, montants 45x145, isolant, OSB, pare-pluie, tasseaux, bardage) et l'extension M4, avec vide de désolidarisation 25mm, solin Z, Compriband et mastic EPDM. Zéro percement dans M3.</desc>
+      <defs>
+        <marker id="arr5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+        <pattern id="p5Bois" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="6" stroke="#c8a06e" stroke-width="1"/>
+        </pattern>
+        <pattern id="p5Iso" width="9" height="9" patternUnits="userSpaceOnUse">
+          <circle cx="2.5" cy="2.5" r="1.2" fill="#d4a820" opacity="0.6"/>
+          <circle cx="7" cy="7" r="1.2" fill="#d4a820" opacity="0.6"/>
+        </pattern>
+        <pattern id="p5Zinc" width="5" height="5" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="2.5" x2="5" y2="2.5" stroke="#7a8a9a" stroke-width="0.9"/>
+        </pattern>
+        <pattern id="p5Osb" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(20)">
+          <line x1="0" y1="0" x2="8" y2="0" stroke="#b08040" stroke-width="0.6"/>
+          <line x1="0" y1="4" x2="8" y2="4" stroke="#b08040" stroke-width="0.3"/>
+        </pattern>
+      </defs>
+      <!-- Étiquettes zones -->
+      <text font-family="Helvetica,Arial,sans-serif" font-size="12" x="125" y="26" text-anchor="middle" fill="#999">Maison 3 — inchangée</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="12" x="340" y="26" text-anchor="middle" fill="#999">Extension Maison 4</text>
+      <line x1="40" y1="31" x2="630" y2="31" stroke="#e8e8e8" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <!-- Placo -->
+      <rect x="40" y="50" width="12" height="354" fill="#eeede8" stroke="#bbb" stroke-width="0.6"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="8" x="46" y="230" text-anchor="middle" fill="#999" transform="rotate(-90,46,230)">Placo</text>
+      <!-- OSB int -->
+      <rect x="52" y="50" width="11" height="354" fill="url(#p5Osb)" stroke="#b08040" stroke-width="0.6"/>
+      <!-- Montants+isolant -->
+      <rect x="63" y="50" width="100" height="354" fill="url(#p5Iso)" stroke="none"/>
+      <rect x="63"  y="50"  width="14" height="354" fill="url(#p5Bois)" stroke="#a07840" stroke-width="0.7"/>
+      <rect x="149" y="50"  width="14" height="354" fill="url(#p5Bois)" stroke="#a07840" stroke-width="0.7"/>
+      <rect x="63"  y="50"  width="14" height="95"  fill="url(#p5Bois)" stroke="#a07840" stroke-width="0.7"/>
+      <rect x="63"  y="195" width="14" height="95"  fill="url(#p5Bois)" stroke="#a07840" stroke-width="0.7"/>
+      <rect x="63"  y="330" width="14" height="74"  fill="url(#p5Bois)" stroke="#a07840" stroke-width="0.7"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="9" x="113" y="222" text-anchor="middle" fill="#8a6010">Isolant +</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="9" x="113" y="233" text-anchor="middle" fill="#8a6010">montants 45×145</text>
+      <!-- OSB ext -->
+      <rect x="163" y="50" width="11" height="354" fill="url(#p5Osb)" stroke="#b08040" stroke-width="0.6"/>
+      <!-- E Pare-pluie M3 -->
+      <rect x="174" y="50" width="5" height="354" fill="#b0c8f0" stroke="#5a80c0" stroke-width="0.6"/>
+      <!-- F Tasseaux M3 -->
+      <rect x="179" y="55"  width="28" height="72" fill="#c8a06e" stroke="#a07840" stroke-width="0.7" rx="1"/>
+      <rect x="179" y="157" width="28" height="72" fill="#c8a06e" stroke="#a07840" stroke-width="0.7" rx="1"/>
+      <rect x="179" y="269" width="28" height="72" fill="#c8a06e" stroke="#a07840" stroke-width="0.7" rx="1"/>
+      <rect x="179" y="365" width="28" height="39" fill="#c8a06e" stroke="#a07840" stroke-width="0.7" rx="1"/>
+      <!-- D Bardage M3 -->
+      <rect x="207" y="50" width="16" height="354" fill="#d4b896" stroke="#a07840" stroke-width="0.8"/>
+      <line x1="207" y1="102" x2="223" y2="102" stroke="#b89070" stroke-width="0.7"/>
+      <line x1="207" y1="152" x2="223" y2="152" stroke="#b89070" stroke-width="0.7"/>
+      <line x1="207" y1="202" x2="223" y2="202" stroke="#b89070" stroke-width="0.7"/>
+      <line x1="207" y1="252" x2="223" y2="252" stroke="#b89070" stroke-width="0.7"/>
+      <line x1="207" y1="302" x2="223" y2="302" stroke="#b89070" stroke-width="0.7"/>
+      <line x1="207" y1="352" x2="223" y2="352" stroke="#b89070" stroke-width="0.7"/>
+      <!-- Vide -->
+      <rect x="223" y="50" width="30" height="354" fill="#f0f7ff" stroke="#aaccee" stroke-width="0.5" stroke-dasharray="3,2"/>
+      <line x1="223" y1="378" x2="253" y2="378" stroke="#3a8ad4" stroke-width="0.8"/>
+      <line x1="223" y1="374" x2="223" y2="382" stroke="#3a8ad4" stroke-width="0.8"/>
+      <line x1="253" y1="374" x2="253" y2="382" stroke="#3a8ad4" stroke-width="0.8"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="238" y="394" text-anchor="middle" fill="#3a8ad4">~25 mm</text>
+      <!-- G Pare-pluie ext -->
+      <rect x="253" y="132" width="5" height="260" fill="#b0c8f0" stroke="#5a80c0" stroke-width="0.6"/>
+      <!-- Zinc -->
+      <rect x="258" y="170" width="172" height="14" fill="url(#p5Zinc)" stroke="#5a6a7a" stroke-width="0.8"/>
+      <!-- Isolant toiture -->
+      <rect x="258" y="184" width="172" height="30" fill="url(#p5Iso)" stroke="#c8a020" stroke-width="0.5"/>
+      <!-- Chevrons -->
+      <rect x="258" y="214" width="172" height="64" fill="url(#p5Bois)" stroke="#a07840" stroke-width="0.8"/>
+      <!-- Paroi lat ext — même composition que Fig.1 :
+           isolant (points) + montants intégrés + frein-vapeur rose + placo
+           x=258..390 total = 132px
+           Isolant+montants : x=258..378  w=120
+           Frein-vapeur     : x=378..382  w=4
+           Placo            : x=382..390  w=8  (légèrement réduit pour tenir dans 132px)  -->
+      <!-- Isolant + montants intégrés -->
+      <rect x="258" y="278" width="120" height="114" fill="url(#p5Iso)" stroke="#c8a020" stroke-width="0.5"/>
+      <!-- Montant gauche intégré -->
+      <rect x="258" y="278" width="14" height="114" fill="url(#p5Bois)" stroke="#a07840" stroke-width="0.7"/>
+      <!-- Montant droit intégré -->
+      <rect x="364" y="278" width="14" height="114" fill="url(#p5Bois)" stroke="#a07840" stroke-width="0.7"/>
+      <!-- Frein-vapeur -->
+      <rect x="378" y="278" width="4"  height="114" fill="#f0b0c0" stroke="#c06080" stroke-width="0.5"/>
+      <!-- Placo intérieur -->
+      <rect x="382" y="278" width="8"  height="114" fill="#eeede8" stroke="#bbb"    stroke-width="0.5"/>
+      <!-- Dalle -->
+      <rect x="253" y="392" width="137" height="10" fill="#c0b8a0" stroke="#999" stroke-width="0.7"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="321" y="416" text-anchor="middle" fill="#888">Plots béton indépendants</text>
+      <!-- Labels toiture droite -->
+      <line x1="390" y1="177" x2="404" y2="177" stroke="#7a8a9a" stroke-width="0.5" stroke-dasharray="2,2"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="407" y="181" fill="#5a6a7a">Zinc (plat)</text>
+      <line x1="390" y1="199" x2="404" y2="199" stroke="#c8a020" stroke-width="0.5" stroke-dasharray="2,2"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="407" y="203" fill="#8a6010">Isolant toiture</text>
+      <line x1="390" y1="246" x2="404" y2="246" stroke="#a07840" stroke-width="0.5" stroke-dasharray="2,2"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="407" y="250" fill="#7a5020">Chevrons</text>
+      <!-- Labels paroi : une seule ligne pour montants+isolant, frein-vapeur, placo -->
+      <line x1="390" y1="320" x2="404" y2="320" stroke="#c8a020" stroke-width="0.5" stroke-dasharray="2,2"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="407" y="324" fill="#8a6010">Montants 45×145 + Isolant 145</text>
+      <line x1="390" y1="348" x2="404" y2="348" stroke="#c06080" stroke-width="0.5" stroke-dasharray="2,2"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="407" y="352" fill="#c06080">Frein-vapeur + Placo</text>
+      <!-- Zone raccord -->
+      <rect x="216" y="118" width="114" height="108" fill="none" stroke="#96b414" stroke-width="1.2" stroke-dasharray="5,3" rx="4"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="273" y="113" text-anchor="middle" fill="#5a7a00">Zone raccord</text>
+      <!-- B Solin Z -->
+      <rect x="253" y="170" width="77" height="8"  rx="1" fill="#8a9aaa" stroke="#5a6a7a" stroke-width="0.9"/>
+      <rect x="253" y="132" width="8"  height="40" rx="1" fill="#8a9aaa" stroke="#5a6a7a" stroke-width="0.9"/>
+      <rect x="220" y="132" width="41" height="8"  rx="1" fill="#8a9aaa" stroke="#5a6a7a" stroke-width="0.9"/>
+      <circle cx="290" cy="174" r="2.5" fill="#5a6a7a"/>
+      <circle cx="310" cy="174" r="2.5" fill="#5a6a7a"/>
+      <line x1="330" y1="174" x2="370" y2="148" stroke="#3a5a8a" stroke-width="0.9" marker-end="url(#arr5)"/>
+      <circle cx="379" cy="142" r="9" fill="#3a5a8a"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="379" y="146" text-anchor="middle" fill="white">B</text>
+      <!-- C Mastic EPDM -->
+      <rect x="223" y="132" width="28" height="8" rx="1" fill="#3a9a3a" stroke="#1a5a1a" stroke-width="0.8"/>
+      <line x1="237" y1="132" x2="237" y2="107" stroke="#1a6a1a" stroke-width="0.9" marker-end="url(#arr5)"/>
+      <circle cx="237" cy="97" r="9" fill="#1a6a1a"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="237" y="101" text-anchor="middle" fill="white">C</text>
+      <line x1="237" y1="107" x2="237" y2="130" stroke="#1a6a1a" stroke-width="0.9" marker-end="url(#arr5)"/>
+      <!-- A Compriband y=140..214 -->
+      <rect x="225" y="140" width="26" height="74" rx="2" fill="#7bc47b" stroke="#2a6a2a" stroke-width="0.9"/>
+      <line x1="227" y1="152" x2="249" y2="152" stroke="#2a6a2a" stroke-width="0.5"/>
+      <line x1="227" y1="163" x2="249" y2="163" stroke="#2a6a2a" stroke-width="0.5"/>
+      <line x1="227" y1="174" x2="249" y2="174" stroke="#2a6a2a" stroke-width="0.5"/>
+      <line x1="227" y1="185" x2="249" y2="185" stroke="#2a6a2a" stroke-width="0.5"/>
+      <line x1="227" y1="196" x2="249" y2="196" stroke="#2a6a2a" stroke-width="0.5"/>
+      <line x1="227" y1="207" x2="249" y2="207" stroke="#2a6a2a" stroke-width="0.5"/>
+      <line x1="225" y1="177" x2="196" y2="177" stroke="#2a6a2a" stroke-width="0.9" marker-end="url(#arr5)"/>
+      <circle cx="187" cy="177" r="9" fill="#2a6a2a"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="187" y="181" text-anchor="middle" fill="white">A</text>
+      <line x1="196" y1="177" x2="223" y2="177" stroke="#2a6a2a" stroke-width="0.9" marker-end="url(#arr5)"/>
+      <!-- Zéro percement — centré x=340, y=227 -->
+      <text font-family="Helvetica,Arial,sans-serif" font-size="10" font-weight="700" x="340" y="210" text-anchor="middle" fill="#c0392b">Zéro percement</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="10" font-weight="700" x="340" y="222" text-anchor="middle" fill="#c0392b">dans M3</text>
+      <circle cx="340" cy="240" r="14" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+      <line x1="330" y1="230" x2="350" y2="250" stroke="#c0392b" stroke-width="2.5"/>
+      <line x1="326" y1="240" x2="225" y2="240" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr5)"/>
+      <!-- D pastille -->
+      <line x1="215" y1="54" x2="196" y2="40" stroke="#8a5010" stroke-width="0.8" marker-end="url(#arr5)"/>
+      <circle cx="187" cy="33" r="9" fill="#8a5010"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="187" y="37" text-anchor="middle" fill="white">D</text>
+      <!-- E pastille -->
+      <line x1="176" y1="110" x2="158" y2="95" stroke="#3a6090" stroke-width="0.8" marker-end="url(#arr5)"/>
+      <circle cx="150" cy="87" r="9" fill="#3a6090"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="150" y="91" text-anchor="middle" fill="white">E</text>
+      <!-- F pastille -->
+      <line x1="193" y1="110" x2="193" y2="95" stroke="#7a5020" stroke-width="0.8" marker-end="url(#arr5)"/>
+      <circle cx="193" cy="86" r="9" fill="#7a5020"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="193" y="90" text-anchor="middle" fill="white">F</text>
+      <!-- G pastille -->
+      <line x1="253" y1="330" x2="238" y2="330" stroke="#3a6090" stroke-width="0.8" marker-end="url(#arr5)"/>
+      <circle cx="229" cy="330" r="9" fill="#3a6090"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="229" y="334" text-anchor="middle" fill="white">G</text>
+      <!-- LÉGENDE SVG — zone basse y=440..760 -->
+      <line x1="40" y1="435" x2="630" y2="435" stroke="#ccc" stroke-width="1"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="700" x="40" y="452" fill="#1e1e1c">Légende</text>
+      <!-- A -->
+      <circle cx="54" cy="472" r="9" fill="#2a6a2a"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="54" y="476" text-anchor="middle" fill="white">A</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="70" y="468" fill="#1a5a1a">Bande Compriband — mousse compressible (10–25 mm)</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="70" y="482" fill="#444">Couvre zone solin + isolant toiture. Pose en poussée sans fixation. Étanchéité air + eau.</text>
+      <!-- B -->
+      <circle cx="54" cy="506" r="9" fill="#3a5a8a"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="54" y="510" text-anchor="middle" fill="white">B</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="70" y="502" fill="#3a4a6a">Solin zinc en Z asymétrique — pièce sur mesure</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="70" y="516" fill="#444">Vis sur chevrons M4 uniquement. Retour enjambe le vide, appui sur bardage M3 sans percement.</text>
+      <!-- C -->
+      <circle cx="54" cy="540" r="9" fill="#1a6a1a"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="54" y="544" text-anchor="middle" fill="white">C</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="70" y="536" fill="#1a4a1a">Mastic EPDM souple — Soudal Fix All ou équivalent</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="70" y="550" fill="#444">Sous retour solin, contact surface sur bardage M3 uniquement. Décollable sans trace.</text>
+      <!-- D -->
+      <circle cx="54" cy="574" r="9" fill="#8a5010"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="54" y="578" text-anchor="middle" fill="white">D</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="70" y="570" fill="#6a3a00">Bardage M3 — lames bois collées aux tasseaux</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="70" y="584" fill="#444">Intact. Aucun percement, aucune découpe, aucune fixation dans M3.</text>
+      <!-- E -->
+      <circle cx="54" cy="608" r="9" fill="#3a6090"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="54" y="612" text-anchor="middle" fill="white">E</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="70" y="604" fill="#2a4a70">Pare-pluie M3 — entre OSB extérieur et tasseaux</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="70" y="618" fill="#444">Membrane respirante de M3. Non percée, non touchée.</text>
+      <!-- F -->
+      <circle cx="54" cy="642" r="9" fill="#7a5020"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="54" y="646" text-anchor="middle" fill="white">F</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="70" y="638" fill="#5a3010">Tasseaux M3 — 40×60 mm</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="70" y="652" fill="#444">Lame d'air ventilée entre pare-pluie E et bardage D. Structure M3 inchangée.</text>
+      <!-- G -->
+      <circle cx="54" cy="676" r="9" fill="#3a6090"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="54" y="680" text-anchor="middle" fill="white">G</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="70" y="672" fill="#2a4a70">Pare-pluie extension — flanc chevron côté M3, toute hauteur</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="70" y="686" fill="#444">Étanchéité de l'extension, indépendante de M3, du haut de toiture à la dalle.</text>
+      <!-- Vide -->
+      <rect x="44" y="702" width="20" height="14" fill="#f0f7ff" stroke="#aaccee" stroke-width="0.8" stroke-dasharray="3,2" rx="2"/>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="700" x="70" y="711" fill="#3a6a9a">Vide de désolidarisation (~25 mm)</text>
+      <text font-family="Helvetica,Arial,sans-serif" font-size="11" x="70" y="725" fill="#444">Espace libre entre bardage M3 et extension M4. Absorbe les mouvements différentiels.</text>
+    </svg>
+  </div>
+
+  <div class="box-ok" style="margin-top:4mm;">
+    <b>Principe garanti :</b> Le bardage de la Maison 3 n'est ni percé, ni découpé, ni vissé.
+    Il est simplement effleuré par pression par la bande Compriband (A) et par le mastic souple (C).
+    Cette configuration est courante pour les joints de dilatation entre deux bâtiments mitoyens
+    indépendants. Elle est conforme aux <strong>DTU 40.41</strong> (couverture zinc) et
+    <strong>DTU 31.2</strong> (ossature bois).
+  </div>
+
+  <!-- ── SECTION 6 ── -->
+  <div class="section-titre">
+    <span class="num">6</span> Synthèse des garanties apportées à la Maison 3
+  </div>
+
+  <table class="table-compo">
+    <thead>
+      <tr>
+        <td>Préoccupation exprimée</td>
+        <td>Réponse technique retenue</td>
+        <td style="width:90px;">Vérifiable par</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="couche-nom">Percement dans le mur voisin</td>
+        <td>Structure autonome sur plots béton indépendants. Solin posé sans fixation. Joint souple sans ancrage.</td>
+        <td style="font-size:8pt;">Inspection visuelle en cours de chantier</td>
+      </tr>
+      <tr>
+        <td class="couche-nom">Reprise de charge sur le mur voisin</td>
+        <td>Ossature bois auto-portante (montants 45×145 mm). Aucun appui sur M3. Plans Tjikko vérifiables.</td>
+        <td style="font-size:8pt;">Plans structure Tjikko ind. B</td>
+      </tr>
+      <tr>
+        <td class="couche-nom">Infiltrations d'eau / Étanchéité</td>
+        <td>Joint EPDM continu + solin zinc en bavette rejetant les eaux. Membrane pare-pluie côté extension.</td>
+        <td style="font-size:8pt;">Contrôle visuel après réalisation</td>
+      </tr>
+      <tr>
+        <td class="couche-nom">Ponts thermiques</td>
+        <td>Joint de désolidarisation 10–15 mm (rupture de pont). Isolant 145 mm dans l'ossature. Frein-vapeur côté chaud.</td>
+        <td style="font-size:8pt;">Note de calcul thermique</td>
+      </tr>
+      <tr>
+        <td class="couche-nom">Dégradation de la performance thermique M3</td>
+        <td>Aucune intervention sur le mur existant de la M3. Ses parois, isolation et bardage restent intacts.</td>
+        <td style="font-size:8pt;">Inspection visuelle — état inchangé</td>
+      </tr>
+      <tr>
+        <td class="couche-nom">Responsabilité en cas de sinistre</td>
+        <td>ABD Interior's : RC professionnelle + assurance décennale 10 ans. Travaux conformes DTU 31.2 et 40.41.</td>
+        <td style="font-size:8pt;">Attestations assurance sur demande</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── SECTION 7 ── -->
+  <div class="section-titre">
+    <span class="num">7</span> Références normatives et réglementaires applicables
+  </div>
+
+  <div class="deux-col" style="font-size:8.5pt; gap:3mm;">
+    <div>
+      <div class="sous-section" style="font-size:8pt;">Structure &amp; ossature bois</div>
+      <p style="font-size:8pt;">DTU 31.2 — Construction de maisons et bâtiments à ossature en bois<br>
+      Eurocodes (Eurocode 5 — structures bois)<br>
+      NF EN 1991 — Actions sur les structures (vent, neige)<br>
+      Plans structure Tjikko BET Bois — ind. B — 24/11/2025</p>
+    </div>
+    <div>
+      <div class="sous-section" style="font-size:8pt;">Étanchéité &amp; couverture</div>
+      <p style="font-size:8pt;">DTU 40.41 — Couverture en feuilles et bandes zinc<br>
+      DTU 20.12 — Maçonnerie des toitures (relevés, solins)<br>
+      Règles professionnelles CSFE — membranes d'étanchéité<br>
+      Règles professionnelles bardage bois RE 2020</p>
+    </div>
+  </div>
+
+  <!-- ── SECTION 8 — VISA ── -->
+  <div class="section-titre">
+    <span class="num">8</span> Établi par / Visa technique
+  </div>
+
+  <div class="deux-col">
+    <div class="bloc-visa">
+      <div class="visa-titre">Direction technique — ABD Interior's</div>
+      <div class="visa-nom">ABD Interior's</div>
+      <div style="font-size:8pt; color:#4a4a47; margin-top:2px;">Constructeur d'ossature bois — Île-de-France<br>
+        09 74 56 43 12 — www.abd-interiors.net<br>
+        Depuis 2011 — + de 15 ans d'expérience</div>
+      <div class="visa-zone">Signature &amp; cachet</div>
+    </div>
+    <div class="bloc-visa">
+      <div class="visa-titre">Bureau d'étude structure — Tjikko BET Bois</div>
+      <div class="visa-nom">Tjikko BET Bois</div>
+      <div style="font-size:8pt; color:#4a4a47; margin-top:2px;">39 avenue Henri Lefeuvre — 72100 Le Mans<br>
+        06 74 87 30 63 — tjikko@ecomail.fr<br>
+        Auteur des plans structure — Copropriété CHOO</div>
+      <div class="visa-zone">Signature &amp; cachet</div>
+    </div>
+  </div>
+
+  <div class="box-avert" style="margin-top:4mm;">
+    <b>Clause de diffusion :</b> Le présent document est établi dans le cadre de la procédure
+    d'information de la copropriété CHOO préalable à l'assemblée générale appelée à se prononcer
+    sur la cession de la parcelle. Il peut être librement communiqué aux copropriétaires.
+    Toute reproduction à d'autres fins est soumise à l'accord d'ABD Interior's.
+  </div>
+
+  <!-- Pied de page page 3 -->
+  <div class="footer">
+    <div>ABD Interior's — Constructeur d'ossature bois Île-de-France — www.abd-interiors.net</div>
+    <div class="fc">ABD-NET-2026-M4-001 — Ind. A</div>
+    <div class="fr">Page 3 / 3 — Fin du document</div>
+  </div>
+
+</div><!-- /page 3 -->
+
+</body>
+</html>
